@@ -5,13 +5,14 @@ using UnityEngine;
 public class PlayerMove : MonoBehaviour
 {
     public float Speed = 7.5f;
-    public float Jump = 7.5f;
+    public float JumpForce = 7.5f;
 
     Rigidbody2D rb;
     CircleCollider2D cc;
 
     private float horMovement = 0f;
     public int facing = 1;
+    public LayerMask layerMask;
 
     void Start()
     {
@@ -22,6 +23,11 @@ public class PlayerMove : MonoBehaviour
     void Update()
     {
         horMovement = Input.GetAxis("Horizontal");
+
+        if(Input.GetButtonDown("Jump") && cc.IsTouchingLayers(layerMask))
+        {
+            rb.AddForce(new Vector2(0f, JumpForce), ForceMode2D.Impulse);
+        }
     }
 
     void FixedUpdate()
