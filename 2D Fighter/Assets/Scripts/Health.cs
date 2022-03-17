@@ -11,11 +11,13 @@ public class Health : MonoBehaviour
 
     Rigidbody2D rb;
     PlayerMove pm;
+    Fighting fs;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         pm = GetComponent<PlayerMove>();
+        fs = GetComponent<Fighting>();
 
         health = maxHealth;
     }
@@ -37,8 +39,15 @@ public class Health : MonoBehaviour
     {
         if(!isHit)
         {
-            health -= damage;
-            StartCoroutine(kb());
+            if(fs.blockCheck)
+            {
+                health -= damage/2;
+            }
+            else
+            {
+                health -= damage;
+                StartCoroutine(kb());
+            }
         }
     }
 

@@ -12,6 +12,7 @@ public class Fighting : MonoBehaviour
     public float range = 1.7f;
     public LayerMask enemyLayer;
     public float cooldown = 0.25f;
+    public float BlockCooldown = 1f;
 
     private float cooldownTimer;
     private bool attacking = false;
@@ -27,7 +28,40 @@ public class Fighting : MonoBehaviour
 
     void Update()
     {
-        
+        if(!blockCheck && !attacking && cooldownTimer <= 0)
+        {
+            if(Input.GetButtonDown("Fire1"))
+            {
+                Punch();
+            }
+
+            if(Input.GetButtonDown("Fire2"))
+            {
+                Kick();
+            }
+        }
+
+        if(Input.GetButtonDown("Fire3"))
+        {
+            Block();
+        }
+
+        if(Input.GetButtonUp("Fire3"))
+        {
+            BlockEnd();
+        }
+
+        if(attacking)
+        {
+            if(cooldownTimer < 0)
+            {
+                cooldownTimer -= Time.deltaTime;
+            }else
+            {
+                attacking = false;
+            }
+        }
+
     }
 
     void Attack(Transform check, float damage)
@@ -37,12 +71,42 @@ public class Fighting : MonoBehaviour
         {
             foreach(Collider2D enemy in enemyHit)
             {
-                if(enemy.gameObject != this.gameObject)
+                if(hit == false)
                 {
-                    enemy.GetComponent<Health>().TakeDamage(damage);
-                }
+                    if(enemy.gameObject != this.gameObject)
+                    {
+                        enemy.GetComponent<Health>().TakeDamage(damage);
+                        hit = true;
+                    }   
+                }   
             }
+            hit = false;
         }
+        attacking = true;
+        cooldownTimer = cooldown;
+    }
+
+    private void Punch()
+    {
+        //Animation
+        Attack(punchCheck, punchDamage);
+    }
+
+    private void Kick()
+    {
+        //Animation
+        Attack(kickCheck, kickDamage);
+    }
+
+    private void BlockEnd()
+    {
+        blockCheck = false;
+
+    }
+
+    private void Block()
+    {
+        blockCheck = true;
     }
 
     void OnDrawGizmos()

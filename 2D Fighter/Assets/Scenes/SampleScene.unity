@@ -207,7 +207,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1894480382837893965, guid: 2ca2ebef440eac34fa889a2ec01b70d7, type: 3}
+  m_Sprite: {fileID: -7232521027535748977, guid: 2ca2ebef440eac34fa889a2ec01b70d7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -331,6 +331,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   cooldown: 0.25
+  BlockCooldown: 1
 --- !u!1 &98189926
 GameObject:
   m_ObjectHideFlags: 0
