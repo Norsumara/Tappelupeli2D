@@ -9,6 +9,7 @@ public class PlayerMove : MonoBehaviour
 
     Rigidbody2D rb;
     CircleCollider2D cc;
+    Health hs;
 
     private float horMovement = 0f;
     public int facing = 1;
@@ -18,6 +19,7 @@ public class PlayerMove : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         cc = GetComponent<CircleCollider2D>();
+        hs = GetComponent<Health>();
     }
 
     void Update()
@@ -32,6 +34,9 @@ public class PlayerMove : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb.velocity = new Vector2(horMovement * Speed, rb.velocity.y);
+        if(!hs.isHit)
+        {
+            rb.velocity = new Vector2(horMovement * Speed, rb.velocity.y);
+        }
     }
 }

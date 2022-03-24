@@ -28,6 +28,11 @@ public class Fighting : MonoBehaviour
 
     void Update()
     {
+        if(!healthScript.isHit)
+        {
+            return;
+        }
+
         if(!blockCheck && !attacking && cooldownTimer <= 0)
         {
             if(Input.GetButtonDown("Fire1"))
