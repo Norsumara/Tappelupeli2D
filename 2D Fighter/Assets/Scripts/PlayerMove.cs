@@ -31,8 +31,13 @@ public class PlayerMove : MonoBehaviour
 
         if(Input.GetButtonDown("Jump") && cc.IsTouchingLayers(layerMask))
         {
+
+        if(hs.isDummy == false)
+        {
             rb.AddForce(new Vector2(0f, JumpForce), ForceMode2D.Impulse);
             an.SetTrigger("Jump");
+        }
+            
         }
         
         if(cc.IsTouchingLayers(layerMask))
@@ -42,15 +47,18 @@ public class PlayerMove : MonoBehaviour
         else{
             an.SetBool("IsTouchingGround", false);
         }
+
     }
 
     void FixedUpdate()
     {
         if(!hs.isHit)
         {
-
-            rb.velocity = new Vector2(horMovement * Speed, rb.velocity.y);
-            an.SetFloat("Speed",Mathf.Abs(horMovement));
+            if(!hs.isDummy)
+            {
+                rb.velocity = new Vector2(horMovement * Speed, rb.velocity.y);
+                an.SetFloat("Speed",Mathf.Abs(horMovement));
+            }
         }
     }
 }

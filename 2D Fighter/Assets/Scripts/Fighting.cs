@@ -28,16 +28,23 @@ public class Fighting : MonoBehaviour
 
     void Update()
     {
-        if(!healthScript.isHit)
+
+        if(healthScript.isHit)
         {
             return;
         }
 
         if(!blockCheck && !attacking && cooldownTimer <= 0)
         {
+            if(healthScript.isDummy)
+            {
+                return;
+            }
+
             if(Input.GetButtonDown("Fire1"))
             {
                 Punch();
+                Debug.Log("eee");
             }
 
             if(Input.GetButtonDown("Fire2"))
@@ -48,11 +55,19 @@ public class Fighting : MonoBehaviour
 
         if(Input.GetButtonDown("Fire3"))
         {
+            if(healthScript.isDummy)
+            {
+                return;
+            }
             Block();
         }
 
         if(Input.GetButtonUp("Fire3"))
         {
+            if(healthScript.isDummy)
+            {
+                return;
+            }
             BlockEnd();
         }
 
@@ -80,6 +95,7 @@ public class Fighting : MonoBehaviour
                 {
                     if(enemy.gameObject != this.gameObject)
                     {
+                        Debug.Log("Take Damage");
                         enemy.GetComponent<Health>().TakeDamage(damage);
                         hit = true;
                     }   
@@ -95,12 +111,14 @@ public class Fighting : MonoBehaviour
     {
         //Animation
         Attack(punchCheck, punchDamage);
+        Debug.Log("Lyö");
     }
 
     private void Kick()
     {
         //Animation
         Attack(kickCheck, kickDamage);
+        Debug.Log("Lyö");
     }
 
     private void BlockEnd()

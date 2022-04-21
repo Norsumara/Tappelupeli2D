@@ -8,6 +8,7 @@ public class Health : MonoBehaviour
     public float health = 100f;
     private float hitTimer = 0.15f;
     public bool isHit = false;
+    public bool isDummy;
 
     Rigidbody2D rb;
     PlayerMove pm;
@@ -48,6 +49,7 @@ public class Health : MonoBehaviour
                 health -= damage;
                 StartCoroutine(kb());
             }
+            Debug.Log("Health: " + health);
         }
     }
 
